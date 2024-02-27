@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NoSleep.js - Simple Test Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body onload="startTime()">
+
+    <script src="NoSleep.min.js"></script>
+
+    <center>
+    <div style="font-size:200pt" id="txt" onclick="openFullscreen()"></div>
+<!--     <input type="button" id="toggle" value="Wake Lock is disabled" /> -->
+    </center>
+
+    <script>
+
+      document.body.style.backgroundColor = "#000";
+      document.body.style.color = "#FFF";
+
+
+      var noSleep = new NoSleep();
+          noSleep.enable(); // keep the screen on!
+
+      function startTime() {
+        const today = new Date();
+        let h = today.getHours();
+        let m = today.getMinutes();
+        let s = today.getSeconds();
+	h = checkTime(h);
+        m = checkTime(m);
+        s = checkTime(s);
+        document.getElementById('txt').innerHTML =  h + ":" + m; // + ":" + s;
+        setTimeout(startTime, 1000);
+    }
+
+/* Get the documentElement (<html>) to display the page in fullscreen */
+var elem = document.getElementById('txt');
+
+/* View in fullscreen */
+function openFullscreen() {
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.webkitRequestFullscreen) { /* Safari */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE11 */
+    elem.msRequestFullscreen();
+  }
+}
+
+openFullscreen();
+
+function checkTime(i) {
+  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+  return i;
+}
+
+    </script>
+
+
+  </body>
+</html>
